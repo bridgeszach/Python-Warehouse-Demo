@@ -15,33 +15,38 @@ from item import Item
 
 #  Global variables
 catalog = []
+oos = []
 
 
 # functions
 def register_item():
-    header('Register new item')
+    header('Register New Item')
     title = input('New item title: ')
     cat = input('New item category: ')
     price = float(input('New item price: '))
     stock = int(input('New item stock: '))
 
     new_item = Item()
-    new_item.id = 0
+    new_item.id = len(catalog)
     new_item.title = title
     new_item.category = cat
     new_item.price = price
     new_item.stock = stock
 
-    catalog.append(new_item)
+    if (stock == 0):
+        oos.append(new_item)
+    elif (stock >= 1):
+        catalog.append(new_item)
+
     print("Item created!")
 
 
 def display_catalog():
     size = len(catalog)
-    header('Current Catalog (' + str(size) + 'items)')
+    header('Current Catalog (' + str(size) + ' Items)')
 
     print(
-        '|' + 'ID'.rjust(2)
+        '|' + ' ID'.rjust(2)
             + ' |' + ' Title'.ljust(27)
             + ' |' + ' Category'.ljust(15)
             + ' |' + ' Price'.ljust(10)
@@ -59,21 +64,20 @@ def display_catalog():
 
 
 def display_oos():
-    size = len(catalog)
-    header('Out of Stock(' + str(size) + 'Items')
+    size = len(oos)
+    header('Out of Stock (' + str(size) + ' Items)')
 
     print(
         '|' + 'ID'.rjust(2)
-            + ' |' + ' Title'.ljust(27)
-            + ' |' + ' Category'.ljust(15)
-            + ' |' + ' Price'.ljust(10)
-            + ' |' + ' Stock'.ljust(5) + '|')
+        + ' |' + ' Title'.ljust(27)
+        + ' |' + ' Category'.ljust(15)
+        + ' |' + ' Price'.ljust(10)
+        + ' |' + ' Stock'.ljust(5) + '|')
     print('-'*70)
 
-    for item in catalog:
-        if (Item.stock == 0):
-            print(
-                '|' + str(item.id).rjust(2)
+    for item in oos:
+        print(
+            '|' + str(item.id).rjust(2)
                 + ' |' + item.title.ljust(27)
                 + ' |' + item.category.ljust(15)
                 + ' |' + str(item.price).rjust(10)
@@ -82,7 +86,6 @@ def display_oos():
 
 
 # instructions
-
 
 # start menu
 opc = ''
