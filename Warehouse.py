@@ -184,7 +184,7 @@ def display_oos():
                 + ' |' + item.category.ljust(15)
                 + ' |' + str(item.price).rjust(10)
                 + ' |' + str(item.stock).rjust(5) + '|')
-        print('-' * 70)
+    print('-' * 70)
 
 
 def update_stock(opc):
@@ -237,6 +237,25 @@ def remove_item():
         print('** Error: selected id is incorrect, try again!')
 
 
+def list_categories():
+    size = len(catalog)
+    header('Current Categories (' + str(size) + ' items)')
+
+    print(
+        '|' + ' Category '.ljust(1) + '|')
+    print('-'*70)
+
+    unique_list = []
+
+    for item in catalog:
+        if item.category not in unique_list:
+            unique_list.append(item.category)
+            print(item.category.ljust(15))     
+
+    print('-' * 70)
+
+    
+
 # instructions
 
 # start menu
@@ -272,6 +291,8 @@ while (opc != 'x'):
         save_catalog()
     elif(opc == '8'):
         print_log()
+    elif(opc == '9'):
+        list_categories()
 
     input('Press Enter to continue...')
     clear()
