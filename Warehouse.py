@@ -143,7 +143,7 @@ def register_item():
 
 def display_catalog():
     size = len(catalog)
-    header('Current Catalog (' + str(size) + 'items)')
+    header('Current Catalog (' + str(size) + ' items)')
 
     print(
         '|' + 'ID'.rjust(2)
@@ -165,7 +165,7 @@ def display_catalog():
 
 def display_oos():
     size = len(catalog)
-    header('Out of stock(' + str(size) + 'items)')
+    header('Out of stock(' + str(size) + ' items)')
 
     print(
         '|' + 'ID'.rjust(2)
@@ -198,7 +198,7 @@ def update_stock(opc):
             if(opc == 1):
                 stock = int(input('New stock value: '))
                 item.stock = stock
-                print('stock updated!')
+                print('Stock Updated!')
                 add_log_event(
                     'SetStock', 'Updated stock for item: ' + str(item.id))
             else:
@@ -231,7 +231,7 @@ def remove_item():
             add_log_event('Remove', 'Removed item: ' + str(item.id))
             break
     if(found):
-        print('item removed from catalog')
+        print('Item removed from catalog')
 
     else:
         print('** Error: selected id is incorrect, try again!')

@@ -15,7 +15,7 @@ def menu():
     print(' [6] Remove item')
     print(' [7] Register sale')
     print(' [8] Display Log')
-    print('\n\n')
+    print('\n')
 
     print(' [x] Exit')
 
