@@ -14,6 +14,8 @@ def menu():
     print(' [5] Calculate stock value')
     print(' [6] Remove item')
     print(' [7] Register sale')
+    print(' [8] Display Log')
+    print('\n\n')
 
     print(' [x] Exit')
 

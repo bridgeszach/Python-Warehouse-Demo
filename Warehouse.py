@@ -3,18 +3,18 @@
      Functionality:
          - repeated menu
          - register items to the catalog
-               id(auto generated)
+               id (auto generated)
                title category price stock
          - display catalog
-         - display items with no stock(out of stock)
-     saving / retrieving data to/from file
+         - display items with no stock (out of stock)
+     saving /retrieving data to/from file
      update the stock of an item
        show list of items
        ask user id
        ask stock
        find item
      update/save
-     -print the total value of the stock(sum(price * stock))
+     -print the total value of the stock (sum(price * stock))
      -remove an item from the catalog
      -
      register sale
@@ -22,7 +22,7 @@
      - ask the use to choose an id
      - ask to provide quantity
      - update the stock
-     have a log of the events
+     have a log of the events 
      - file name for the logs
      - list for the log entries
      - add_log_event function that receives a string
@@ -30,6 +30,8 @@
      read_log
      update existing fn to register log entries
      display the log of events
+     
+     display list of categories (unique cats)
 """
 
 from menu import menu, clear, header
@@ -97,8 +99,25 @@ def read_log():
         print('** no logs file found, database is empty')
 
 
-# functions
+def get_current_time():
+    now = datetime.datetime.now()
+    return now.strftime('%b/%d/%Y%T')
 
+
+def add_log_event(event_type, event_description):
+    entry = get_current_time() + '|  ' + event_type.ljust(10) + \
+        ' | ' + event_description
+    log.append(entry)
+    save_log()
+
+
+def print_log():
+    header('Log of events')
+    for entry in log:
+        print(entry)
+
+
+# functions
 
 def register_item():
     global last_id
@@ -179,16 +198,16 @@ def update_stock(opc):
             if(opc == 1):
                 stock = int(input('New stock value: '))
                 item.stock = stock
-                print('Stock Updated!')
+                print('stock updated!')
                 add_log_event(
-                    "SetStock", "Updated stock for item: " + str(item.id))
+                    'SetStock', 'Updated stock for item: ' + str(item.id))
             else:
                 sold = int(input('Number of items to sell: '))
                 item.stock -= sold
                 print('Sale registered')
-                add_log_event("sale", "Sold " + str(sold) +
-                              " items of item: " + str(item.id))
+                add_log_event('Sale', 'items sold: ' + str(sold))
 
+            print('Stock updated!')
     if(not found):
         print('Error: Selected id does not exist, try again')
 
@@ -209,43 +228,24 @@ def remove_item():
         if(item.id == id):
             catalog.remove(item)
             found = True
-            add_log_event("Remove", "Removed item: " + str(item.id))
+            add_log_event('Remove', 'Removed item: ' + str(item.id))
             break
     if(found):
-        print('Item removed from catalog')
+        print('item removed from catalog')
+
     else:
         print('** Error: selected id is incorrect, try again!')
-
-
-def get_current_time():
-    now = datetime.datetime.now()
-    return now.strftime('%b/%d/%Y%T')
-
-
-def add_log_event(event_type, event_description):
-    entry = get_current_time() + '|  ' + event_type.ljust(10) + \
-        ' | ' + event_description
-    log.append(entry)
-    save_log()
-
-
-def print_log():
-    header("Log of events")
-    for entry in log:
-        print(entry)
 
 
 # instructions
 
 # start menu
-
 # first load all data
 read_catalog()
 read_log()
 input('Press enter to continue')
 
 opc = ''
-
 while (opc != 'x'):
     clear()
     menu()
